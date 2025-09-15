@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -14,17 +14,14 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Configurar JDK
+      - name: Configurar JDK (Java 8 para Gradle 5.4.1)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 8
 
       - name: Dar permisos a gradlew
         run: chmod +x ./gradlew
-
-      - name: Actualizar Gradle Wrapper
-        run: ./gradlew wrapper --gradle-version 8.7 --distribution-type all
 
       - name: Compilar APK
         run: ./gradlew assembleRelease
