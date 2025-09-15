@@ -2,6 +2,7 @@ package com.foster.website;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.mozilla.geckoview.GeckoRuntime;
@@ -9,40 +10,40 @@ import org.mozilla.geckoview.GeckoSession;
 import org.mozilla.geckoview.GeckoView;
 
 public class MainActivity extends AppCompatActivity {
-    private GeckoSession geckoSession;
-    private GeckoRuntime geckoRuntime;
-    private GeckoView geckoView;
-    private TextView statusText;
+
+    // variables
+    GeckoView geckoView;
+    GeckoSession geckoSession;
+    GeckoRuntime geckoRuntime;
+    String url;
+
+    TextView statusText; // para mostrar mensajes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        geckoView = findViewById(R.id.geckoview);
-        statusText = findViewById(R.id.status_text);
+        init();
 
-        geckoSession = new GeckoSession();
-        geckoRuntime = GeckoRuntime.create(this);
-
+        // abre una nueva sesión (esto DEBE ser antes de setSession o crashea)
         geckoSession.open(geckoRuntime);
+
+        // asigna la sesión al geckoview
         geckoView.setSession(geckoSession);
 
-        // Mostrar "Cargando..." al iniciar
-        statusText.setText("Cargando web...");
-
-        // Manejar estado de carga
-        geckoSession.getProgressDelegate().setDelegate(new GeckoSession.ProgressDelegate() {
+        // manejar progreso de carga
+        geckoSession.setProgressDelegate(new GeckoSession.ProgressDelegate() {
             @Override
             public void onPageStart(GeckoSession session, String url) {
-                runOnUiThread(() -> statusText.setText("Cargando: " + url));
+                runOnUiThread(() -> statusText.setText("Cargando..."));
             }
 
             @Override
             public void onPageStop(GeckoSession session, boolean success) {
                 runOnUiThread(() -> {
                     if (success) {
-                        statusText.setText("");
+                        statusText.setText(""); // limpiar mensaje
                     } else {
                         statusText.setText("Error al cargar la página");
                     }
@@ -50,15 +51,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // URL de tu sitio
-        geckoSession.loadUri("http://atencioncolas.chatup.pe/screen");
+        // carga la URL
+        geckoSession.loadUri(url);
+    }
+
+    // inicializa variables
+    private void init() {
+        geckoView = findViewById(R.id.geckoview);
+        statusText = findViewById(R.id.status_text); // el TextView del layout
+        geckoSession = new GeckoSession();
+        geckoRuntime = GeckoRuntime.create(this);
+        url = "http://atencioncolas.chatup.pe/screen"; // usa http o https según tu server
+    }
+
+    // permite retroceder en historial
+    @Override
+    public void onBackPressed() {
+        geckoSession.goBack();
     }
 
     @Override
     protected void onDestroy() {
+        geckoSession.close();
         super.onDestroy();
-        if (geckoSession != null) {
-            geckoSession.close();
-        }
     }
 }
