@@ -38,6 +38,7 @@ jobs:
           yes | sdkmanager --licenses
           sdkmanager "platforms;android-29" "build-tools;29.0.3" \
                      "ndk;21.4.7075529" "cmake;3.10.2.4988404"
+          echo "$HOME/android-sdk/build-tools/29.0.3" >> $GITHUB_PATH
 
       # Paso 2: Cambiar a JDK 8 para Gradle 5.4.1
       - name: Configurar JDK 8
@@ -55,10 +56,9 @@ jobs:
       - name: Listar APKs generados
         run: ls -R app/build/outputs/apk/release/
 
-      # Paso 3: Firmar con debug keystore
+      # Paso 3: Firmar APK con debug keystore
       - name: Firmar APK con debug keystore
         run: |
-          # Crear debug keystore si no existe
           if [ ! -f ~/.android/debug.keystore ]; then
             mkdir -p ~/.android
             keytool -genkey -v -keystore ~/.android/debug.keystore \
@@ -67,16 +67,14 @@ jobs:
               -dname "CN=Android Debug,O=Android,C=US"
           fi
 
-          # Buscar el APK generado (unsigned)
           APK_PATH=$(ls app/build/outputs/apk/release/*-unsigned.apk | head -n 1)
           echo "APK detectado: $APK_PATH"
 
-          # Firmar el APK
           jarsigner -verbose -keystore ~/.android/debug.keystore \
             -storepass android -keypass android \
             "$APK_PATH" androiddebugkey
 
-          # Alinear el APK para instalación
+          # Alinear APK
           zipalign -f 4 "$APK_PATH" app-release-signed.apk
 
       - name: Subir artefacto APK firmado
