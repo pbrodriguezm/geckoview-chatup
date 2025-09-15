@@ -20,11 +20,11 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Configurar Gradle
-        uses: gradle/gradle-build-action@v3
-
       - name: Dar permisos a gradlew
         run: chmod +x ./gradlew
+
+      - name: Actualizar Gradle Wrapper
+        run: ./gradlew wrapper --gradle-version 8.7 --distribution-type all
 
       - name: Compilar APK
         run: ./gradlew assembleRelease
