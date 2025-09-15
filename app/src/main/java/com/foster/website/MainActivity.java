@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         geckoView = findViewById(R.id.geckoview);
         geckoSession = new GeckoSession();
         geckoRuntime = GeckoRuntime.create(this);
-        url = "https://example.com";
+        url = "http://atencioncolas.chatup.pe/screen";
     }
 
     // overrides the current back button movement. this allows to go back to the previous site visited (if any)
