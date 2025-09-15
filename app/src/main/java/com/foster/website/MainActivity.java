@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         statusText = findViewById(R.id.status_text); // el TextView del layout
         geckoSession = new GeckoSession();
         geckoRuntime = GeckoRuntime.create(this);
-        url = "http://atencioncolas.chatup.pe/screen"; // usa http o https según tu server
+        url = "https://atencioncolas.chatup.pe/screen"; // usa http o https según tu server
     }
 
     // permite retroceder en historial
