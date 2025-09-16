@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.GeckoSession;
 import org.mozilla.geckoview.GeckoView;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,12 +44,14 @@ public class MainActivity extends AppCompatActivity {
             public void onPageStop(GeckoSession session, boolean success) {
                 runOnUiThread(() -> {
                     if (success) {
-                        statusText.setText(""); // limpiar mensaje
+                        statusText.setVisibility(View.GONE); // lo ocultamos del todo
                     } else {
                         statusText.setText("Error al cargar la página");
+                        statusText.setVisibility(View.VISIBLE);
                     }
                 });
             }
+
         });
 
         // carga la URL
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         statusText = findViewById(R.id.status_text); // el TextView del layout
         geckoSession = new GeckoSession();
         geckoRuntime = GeckoRuntime.create(this);
-        url = "https://google.com"; // usa http o https según tu server
+        url = "https://atencioncolas.chatup.pe/screen"; // usa http o https según tu server
     }
 
     // permite retroceder en historial
