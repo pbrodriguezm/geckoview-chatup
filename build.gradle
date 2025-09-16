@@ -4,16 +4,6 @@ plugins {
     id 'com.android.application' version '7.4.2' apply false
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            url "https://maven.mozilla.org/maven2/"
-        }
-    }
-}
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
