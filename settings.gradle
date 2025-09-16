@@ -15,5 +15,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ChatupTVs"
+rootProject.name = "geckoview-chatup"
 include(":app")
