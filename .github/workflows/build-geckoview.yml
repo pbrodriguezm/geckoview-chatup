@@ -55,6 +55,8 @@ jobs:
 
       - name: Compilar APK Release
         run: ./gradlew assembleRelease
+        env:
+          GRADLE_OPTS: "-Xmx4096m -Dorg.gradle.daemon=false"
 
       - name: Listar APKs generados
         run: ls -R app/build/outputs/apk/release/ || true
