@@ -46,9 +46,6 @@ jobs:
       - name: Dar permisos a gradlew
         run: chmod +x ./gradlew
 
-      # 5. Actualizar el Gradle Wrapper a 7.5 (recrea gradle-wrapper.jar si hace falta)
-      - name: Actualizar Gradle Wrapper
-        run: ./gradlew wrapper --gradle-version 7.5 --distribution-type all
 
       # 6. Compilar APK
       - name: Compilar APK
