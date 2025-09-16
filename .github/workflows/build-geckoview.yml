@@ -15,11 +15,11 @@ jobs:
         uses: actions/checkout@v4
 
       # 1. Configurar JDK 11 (para AGP 7.4.2 y Gradle 7.5)
-      - name: Configurar JDK 11
+      - name: Configurar JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 11
+          java-version: 17
 
       # 2. Instalar Android SDK Command-line Tools
       - name: Instalar Android SDK Command-line Tools
