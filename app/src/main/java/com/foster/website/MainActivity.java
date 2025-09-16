@@ -57,11 +57,16 @@ public class MainActivity extends AppCompatActivity {
 
     // inicializa variables
     private void init() {
-        geckoView = findViewById(R.id.geckoview);
-        statusText = findViewById(R.id.status_text); // el TextView del layout
-        geckoSession = new GeckoSession();
-        geckoRuntime = GeckoRuntime.create(this);
-        url = "https://google.com"; // usa http o https según tu server
+        WebView webView = new WebView(this);
+        webView.getSettings().setJavaScriptEnabled(true);
+        setContentView(webView);
+        webView.loadUrl("https://google.com");
+
+        // geckoView = findViewById(R.id.geckoview);
+        // statusText = findViewById(R.id.status_text); // el TextView del layout
+        // geckoSession = new GeckoSession();
+        // geckoRuntime = GeckoRuntime.create(this);
+        // url = "https://google.com"; // usa http o https según tu server
     }
 
     // permite retroceder en historial
