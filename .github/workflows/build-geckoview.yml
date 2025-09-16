@@ -41,13 +41,13 @@ jobs:
           sdkmanager "platforms;android-34" "build-tools;34.0.0"
           echo "$HOME/android-sdk/build-tools/34.0.0" >> $GITHUB_PATH
 
-      # 4. Actualizar el Gradle Wrapper a 7.5 (recrea gradle-wrapper.jar)
-      - name: Actualizar Gradle Wrapper
-        run: ./gradlew wrapper --gradle-version 7.5 --distribution-type all
-
-      # 5. Dar permisos a gradlew
+      # 4. Dar permisos a gradlew
       - name: Dar permisos a gradlew
         run: chmod +x ./gradlew
+
+      # 5. Actualizar el Gradle Wrapper a 7.5 (recrea gradle-wrapper.jar)
+      - name: Actualizar Gradle Wrapper
+        run: ./gradlew wrapper --gradle-version 7.5 --distribution-type all
 
       # 6. Compilar APK
       - name: Compilar APK
