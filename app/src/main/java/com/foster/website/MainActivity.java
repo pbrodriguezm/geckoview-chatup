@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         statusText = findViewById(R.id.status_text); // el TextView del layout
         geckoSession = new GeckoSession();
         geckoRuntime = GeckoRuntime.create(this);
-        url = "https://atencioncolas.chatup.pe/screen";
+        url = "https://cola-farm-casa.chatup.pe/screen";
     }
 
     // permite retroceder en historial
